@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      /* Required for JS/JSX projects */
+      "allowJs": true,
+      "jsx": "react-jsx",
+      
+      /* Alias Configuration */
+      "baseUrl": ".", 
+      "paths": {
+        // Maps the @ alias to the src directory
+        "@/*": ["./src/*"] 
+      }
+    },
+    "include": ["src"]
+  }
+  
