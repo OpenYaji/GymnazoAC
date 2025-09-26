@@ -1,6 +1,22 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'ogl';
 import { useEffect, useRef } from 'react';
-import Pic from '../../assets/img/pic4.png';
+import Pic from '../../assets/img/about8.jpg';
+import Pic2 from '../../assets/img/about1.jpg'
+import Pic3 from '../../assets/img/about2.jpg'
+import Pic4 from '../../assets/img/pic2.jpg';
+import Pic5 from '../../assets/img/pic3.jpg';
+import Pic6 from '../../assets/img/pic4.jpg';
+import Pic7 from '../../assets/img/pic5.jpg';
+import Pic8 from '../../assets/img/pic6.jpg';
+import Pic9 from '../../assets/img/about3.jpg'
+import Pic10 from '../../assets/img/about4.jpg';
+import Pic11 from '../../assets/img/about5.jpg';
+import Pic12 from '../../assets/img/about6.jpg';
+
+
+
+
+
 
 function debounce(func, wait) {
   let timeout;
@@ -333,18 +349,18 @@ class App {
   }
   createMedias(items, bend = 1, textColor, borderRadius, font) {
     const defaultItems = [
-      { image: `${Pic}`, text: 'Bridge' },
-      { image: `${Pic}`, text: 'Desk Setup' },
-      { image: `${Pic}`, text: 'Waterfall' },
-      { image: `${Pic}`, text: 'Strawberries' },
-      { image: `${Pic}`, text: 'Deep Diving' },
-      { image: `${Pic}`, text: 'Train Track' },
-      { image: `${Pic}`, text: 'Santorini' },
-      { image: `${Pic}`, text: 'Blurry Lights' },
-      { image: `${Pic}`, text: 'New York' },
-      { image: `${Pic}`, text: 'Good Boy' },
-      { image: `${Pic}`, text: 'Coastline' },
-      { image: `${Pic}`, text: 'Palm Trees' }
+      { image: `${Pic}`, text: '1' },
+      { image: `${Pic2}`, text: '2' },
+      { image: `${Pic3}`, text: '3' },
+      { image: `${Pic4}`, text: '4' },
+      { image: `${Pic5}`, text: '5' },
+      { image: `${Pic6}`, text: '6' },
+      { image: `${Pic7}`, text: '7' },
+      { image: `${Pic8}`, text: '8' },
+      { image: `${Pic9}`, text: '9' },
+      { image: `${Pic10}`, text: '10' },
+      { image: `${Pic11}`, text: '11' },
+      { image: `${Pic12}`, text: '12' }
     ];
     const galleryItems = items && items.length ? items : defaultItems;
     this.mediasImages = galleryItems.concat(galleryItems);
