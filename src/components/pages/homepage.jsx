@@ -5,30 +5,39 @@ import Update from '../common/updatesection'
 import About from '../common/about'
 import Announcement from '../common/announcement'
 import Footer from '../common/footer'
-const homepage = () => {
+import Contact from '../common/contact' // Assuming common/contact.jsx
+import FAQ from '../common/faq'     // Assuming common/faq.jsx
+
+const Homepage = () => {
   return (
     <>
     <Header/>
     <main className=' min-h-screen'>
         <section id="home">
-         <Hero/>
+           <Hero/>
         </section>
         <section id="about-us">
             <About/>
         </section>
         <Update/>
-        <section id="announcement" className="min-h-screen bg-gray-100 pt-10">
+        <section id="announcement" className="min-h-screen ">
             <Announcement/>
         </section>
         
-        <section id="contact-us" className="min-h-screen bg-white p-20">
-          <h2 className="text-3xl font-bold mb-6">CONTACT US</h2>
-          <p>Contact form, map, and school details for inquiries.</p>
+
+        <section id="contact-us" className="grid grid-cols-1 md:grid-cols-2 gap-2 bg-white dark:bg-gray-900 transition-colors duration-300 p-4 md:p-8" 
+        >
+          <div className="col-span-1 h-full pt-10">
+          <FAQ/>
+          </div>
+          <div className="col-span-1 h-full pt-10">
+            <Contact/>
+          </div>
         </section>
-    </main>    
+    </main> 
         <Footer/>
     </>
   )
 }
 
-export default homepage
+export default Homepage

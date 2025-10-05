@@ -31,14 +31,20 @@ const Header = () => {
 
   return (
     <header className='w-full shadow-md sticky top-0 z-50'>
-      <div className='flex justify-between items-center h-16 sm:h-20 bg-gray-100 dark:bg-gray-800 px-4 sm:px-0 transition-colors duration-300'>
-        <div className='flex items-center'>
-          <img src={Logo} alt='Gymnazo' className='h-10 w-10 sm:h-14 sm:w-14 sm:ml-7 border-[#5B3E31] dark:border-amber-400 border-2 rounded-full'/>
-          <div className='ml-2 sm:ml-4 text-[#5B3E31] dark:text-amber-400'>
+<div className='flex justify-between items-center h-16 sm:h-20 bg-gray-100 dark:bg-gray-800 px-4 sm:px-0 transition-colors duration-300'>
+    <div className='flex items-center'>
+        <a href="#home">
+            <img 
+                src={Logo} 
+                alt='Gymnazo' 
+                className='h-10 w-10 sm:h-14 sm:w-14 sm:ml-7 border-[#5B3E31] dark:border-amber-400 border-2 rounded-full'
+            />
+        </a>
+        <div className='ml-2 sm:ml-4 text-[#5B3E31] dark:text-amber-400 transition-colors duration-300'>
             <div className='font-bold text-xs sm:text-base'>GYMNAZO CHRISTIAN ACADEMY</div>
             <div className='text-[10px] sm:text-sm'>NOVALICHES</div>
-          </div>
         </div>
+    </div>
 
         <div className='flex items-center gap-2 sm:gap-4'>
           {/* Compact Dark Mode Toggle */}

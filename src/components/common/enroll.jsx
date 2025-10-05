@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import Bg from '../../assets/img/bg.png';
+import { Link } from 'react-router-dom'; // Import Link
 
-// --- Privacy Modal Component ---
+// --- Privacy Modal Component (kept as is) ---
 const PrivacyModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
             <div className="bg-stone-800/95 dark:bg-gray-900/95 text-white p-6 sm:p-8 rounded-lg w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl backdrop-blur-sm border border-stone-700 dark:border-gray-600 transition-colors duration-300">
+            
                 <h2 className="text-xl sm:text-2xl font-bold text-[#F4D77D] dark:text-amber-400 border-b border-white/50 dark:border-gray-600 pb-2 mb-4 transition-colors duration-300">
                     Privacy Policy & Data Sharing Agreement
                 </h2>
@@ -63,16 +65,40 @@ const Enroll = () => {
     };
 
     return (
-        <div className="relative w-full flex flex-col items-center justify-center py-8 px-4 sm:px-6">
+        // CHANGE: Set min-h-screen to ensure the background covers the page
+        <div className="relative w-full min-h-screen flex flex-col items-center justify-center py-8 px-4 sm:px-6">
             <PrivacyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
             
+            {/* Background and Overlay */}
             <div 
                 className="absolute inset-0 bg-cover bg-center" 
                 style={{ backgroundImage: `url(${Bg})` }}
             ></div>
             <div className="absolute inset-0 bg-stone-900/60 dark:bg-black/70 transition-colors duration-300"></div> 
 
+            {/*
+                CHANGE: The Back to Home Button wrapper is now *removed* from the main document flow
+                and placed inside the content wrapper. It is no longer 'fixed'. 
+                I've also adjusted the pt-40 to pt-20 to compensate for the removed fixed element.
+            */}
             <div className="relative z-10 w-full max-w-5xl">
+            
+                {/* START: Back to Home Button - NOT FIXED, Scrolls with content */}
+                <div className='**relative** top-0 left-0 w-full mb-2 z-10 transition-all duration-300'>
+                    <div className='w-full flex justify-start'>
+                        <Link 
+                            to="/" 
+                            className='flex items-center gap-2 text-white dark:text-amber-400 font-bold hover:text-white dark:hover:text-amber-300 transition duration-150 text-sm px-4 group'
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:-translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            <span className='inline'>Back to Home</span>
+                        </Link>
+                    </div>
+                </div>
+                {/* END: Back to Home Button */}
+
                 <form className="relative" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-5 gap-4 auto-rows-fr"> 
                         

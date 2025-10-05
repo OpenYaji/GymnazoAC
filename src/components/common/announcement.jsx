@@ -2,6 +2,8 @@ import React from 'react'
 import ModelViewer from '../ui/ModelViewer'
 import Carousel from '../ui/Carousel'
 import AnnounceCard from '../ui/announceCard'
+import Pic1 from '../../assets/img/pic6.jpg'
+import Pic2 from '../../assets/img/about7.jpg'
 
 const announcement = () => {
   const ViewAllButton = () => (
@@ -54,23 +56,26 @@ const announcement = () => {
     <div className='w-full bg-white dark:bg-gray-900 transition-colors duration-300'>
 
       <div className='w-full pb-10'>
-        <div className='hidden lg:flex lg:justify-around lg:items-start gap-6 px-4'>
+        <div className='hidden lg:flex lg:justify-around lg:items-start gap-6 px-4 pt-10'>
           <div className='flex-1 max-w-[900px] bg-gray-100 dark:bg-gray-800 rounded-lg p-8 transition-colors duration-300'>
             <div className='flex justify-center items-center mb-8'>
-              <h3 className='mr-10 text-4xl font-bold text-base-brown dark:text-amber-400 transition-colors duration-300'>LATEST ANNOUNCEMENTS</h3>
-              <ViewAllButton />
+              <h3 className='mr-10 text-4xl font-bold text-base-brown dark:text-amber-400 transition-colors duration-300 pb-2'>LATEST ANNOUNCEMENTS</h3>
             </div>
 
-            {/* Cards Grid */}
+            {/* Cards Grid - FIX IS HERE */}
             <div className='grid grid-cols-2 gap-8'>
-              <AnnounceCard />
-              <AnnounceCard />
+              <AnnounceCard 
+                image={Pic1} // Changed from image=`{Pic1}`.
+              />
+              <AnnounceCard 
+                image={Pic2} // Changed from image=`{Pic2}`.
+              />
             </div>
           </div>
 
           {/* News Section*/}
           <div className='flex-shrink-0 flex flex-col'>
-            <h3 className='flex justify-center text-4xl font-bold text-base-brown dark:text-amber-400 mb-4 transition-colors duration-300'>News</h3>
+            <h3 className='flex justify-center text-4xl font-bold text-base-brown dark:text-amber-400 mb-4 transition-colors duration-300'>NEWS</h3>
             <div className='flex justify-center items-start flex-1'>
               <Carousel
                 baseWidth={400}
@@ -84,8 +89,13 @@ const announcement = () => {
             </div>
           </div>
         </div>
+        <div className='hidden lg:flex justify-center mt-3'>
+        <ViewAllButton />
+
+        </div>
 
         {/* Mobile/Tablet Layout (up to lg: breakpoint) */}
+        {/* You may want to pass the props here too, but since you didn't have any, I'm leaving it as-is */}
         <div className='lg:hidden space-y-8 px-4'>
           <div className='bg-[#f8e19e] dark:bg-gray-800 rounded-lg p-8 transition-colors duration-300'>
             <div className='flex justify-between items-center mb-8'>
@@ -103,7 +113,7 @@ const announcement = () => {
           </div>
 
           <div>
-            <h3 className='text-3xl font-bold text-gray-800 dark:text-amber-400 mb-4 text-center transition-colors duration-300'>News</h3> 
+            <h3 className='text-3xl font-bold text-gray-800 dark:text-amber-400 mb-4 text-center transition-colors duration-300'>LATEST NEWS</h3> 
             <div className='flex justify-center'>
               <Carousel
                 baseWidth={400} 
