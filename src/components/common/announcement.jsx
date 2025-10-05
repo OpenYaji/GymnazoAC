@@ -95,7 +95,6 @@ const announcement = () => {
         </div>
 
         {/* Mobile/Tablet Layout (up to lg: breakpoint) */}
-        {/* You may want to pass the props here too, but since you didn't have any, I'm leaving it as-is */}
         <div className='lg:hidden space-y-8 px-4'>
           <div className='bg-[#f8e19e] dark:bg-gray-800 rounded-lg p-8 transition-colors duration-300'>
             <div className='flex justify-between items-center mb-8'>
