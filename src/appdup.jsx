@@ -11,7 +11,7 @@ function App() {
         e.preventDefault();
         setMessage('');
 
-        const endpoint = isLogin
+        const endpoint = isLogin    
             ? 'http://localhost/Gymazo-Student-Side/backend/auth/api/login.php'
             : 'http://localhost/Gymazo-Student-Side/backend/auth/api/register.php';
 

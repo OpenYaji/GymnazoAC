@@ -2,37 +2,38 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, useMotionValue, useTransform } from 'motion/react';
 // replace icons with your own if needed
 import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from 'react-icons/fi';
-
+import Pic12 from '../../assets/img/about6.jpg';
+import Pic13 from '../../assets/img/about7.jpg';
+import Pic14 from '../../assets/img/about8.jpg';
+import Pic15 from '../../assets/img/about9.jpg';
 const DEFAULT_ITEMS = [
   {
-    title: 'Text Animations',
+    title: 'Event',
     description: 'Cool text animations for your projects.',
     id: 1,
-    icon: <FiFileText className="h-[16px] w-[16px] text-white" />
+    icon: <FiFileText className="h-[16px] w-[16px] text-white" />,
+    image: `${Pic12}`
   },
   {
-    title: 'Animations',
+    title: 'Competition',
     description: 'Smooth animations for your projects.',
     id: 2,
-    icon: <FiCircle className="h-[16px] w-[16px] text-white" />
-  },
-  {
-    title: 'Components',
-    description: 'Reusable components for your projects.',
-    id: 3,
-    icon: <FiLayers className="h-[16px] w-[16px] text-white" />
+    icon: <FiCircle className="h-[16px] w-[16px] text-white" />,
+    image: `${Pic13}`
   },
   {
     title: 'Backgrounds',
     description: 'Beautiful backgrounds and patterns for your projects.',
-    id: 4,
-    icon: <FiLayout className="h-[16px] w-[16px] text-white" />
+    id: 3,
+    icon: <FiLayout className="h-[16px] w-[16px] text-white" />,
+    image: `${Pic14}`
   },
   {
     title: 'Common UI',
     description: 'Common UI components are coming soon!',
-    id: 5,
-    icon: <FiCode className="h-[16px] w-[16px] text-white" />
+    id: 4,
+    icon: <FiCode className="h-[16px] w-[16px] text-white" />,
+    image: `${Pic15}`
   }
 ];
 
@@ -44,7 +45,7 @@ const SPRING_OPTIONS = { type: 'spring', stiffness: 300, damping: 30 };
 export default function Carousel({
   items = DEFAULT_ITEMS,
   baseWidth = 450,
-  height = 200,
+  height = 500,
   autoplay = false,
   autoplayDelay = 3000,
   pauseOnHover = false,
@@ -139,7 +140,7 @@ export default function Carousel({
       }`}
       style={{
         width: `${baseWidth}px`,
-        ...(round && { height: `${baseWidth}px` })
+        height: `${height}px`
       }}
     >
       <motion.div
@@ -169,24 +170,39 @@ export default function Carousel({
               className={`relative shrink-0 flex flex-col ${
                 round
                   ? 'items-center justify-center text-center bg-[#060010] border-0'
-                  : 'items-start justify-between bg-[#222] border border-[#222] rounded-[12px]'
+                  : 'items-start justify-between bg-transparent border border-[#222] rounded-[12px]'
               } overflow-hidden cursor-grab active:cursor-grabbing`}
               style={{
                 width: itemWidth,
-                height: round ? itemWidth : '100%',
+                height: height - 80,
                 rotateY: rotateY,
                 ...(round && { borderRadius: '50%' })
               }}
               transition={effectiveTransition}
             >
-              <div className={`${round ? 'p-0 m-0' : 'mb-4 p-5'}`}>
-                <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#060010]">
-                  {item.icon}
-                </span>
-              </div>
-              <div className="p-5">
-                <div className="mb-1 font-black text-lg text-white">{item.title}</div>
-                <p className="text-sm text-white">{item.description}</p>
+              {/* Full Background Image */}
+              {item.image && (
+                <div className="absolute inset-0 w-full h-full">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                    draggable="false"
+                  />
+                </div>
+              )}
+              
+              {/* Content Section with Translucent Black Background */}
+              <div className="relative z-10 flex-1 p-5 flex flex-col justify-end w-full">
+                <div className="bg-black bg-opacity-50 p-4 rounded-lg">
+                  <div className="mb-2 flex items-center gap-2">
+                    <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-white bg-opacity-20">
+                      {item.icon}
+                    </span>
+                    <h3 className="font-black text-lg text-white">{item.title}</h3>
+                  </div>
+                  <p className="text-sm text-white text-opacity-90">{item.description}</p>
+                </div>
               </div>
             </motion.div>
           );

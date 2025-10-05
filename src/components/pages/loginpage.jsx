@@ -1,13 +1,22 @@
 import React from 'react'
-import Header from '../common/header'
+import Header from '../common/loginHeader'
+import Hero from '../common/hero'
+import Update from '../common/updatesection'
+import About from '../common/about'
+import Announcement from '../common/announcement'
+import Footer from '../common/footer'
+import Login from '../common/login'
 const loginpage = () => {
   return (
-    <main className='h-screen'>
-        <div>
-        <Header/>
-            loginpage
-        </div>
-    </main>
+    <> 
+            <Header/>
+    <main className=' min-h-screen'>
+    <section id="home">
+     <Login/>
+    </section>
+</main>    
+    <Footer/>
+    </>
 
   )
 }

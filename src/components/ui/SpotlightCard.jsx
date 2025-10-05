@@ -1,21 +1,34 @@
 import { useRef, useState } from 'react';
 
-const SpotlightCard = ({ children, className = '', spotlightColor = 'rgba(243, 255, 124, 0.8)' }) => {
+const SpotlightCard = ({ 
+  children, 
+  className = '', 
+  spotlightColor = 'rgba(243, 255, 124, 0.8)',
+  darkSpotlightColor = 'rgba(251, 191, 36, 0.6)' // amber color for dark mode
+}) => {
   const divRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Check for dark mode
+  const checkDarkMode = () => {
+    return document.documentElement.classList.contains('dark');
+  };
 
   const handleMouseMove = e => {
     if (!divRef.current || isFocused) return;
 
     const rect = divRef.current.getBoundingClientRect();
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setIsDarkMode(checkDarkMode());
   };
 
   const handleFocus = () => {
     setIsFocused(true);
     setOpacity(0.6);
+    setIsDarkMode(checkDarkMode());
   };
 
   const handleBlur = () => {
@@ -25,11 +38,14 @@ const SpotlightCard = ({ children, className = '', spotlightColor = 'rgba(243, 2
 
   const handleMouseEnter = () => {
     setOpacity(0.6);
+    setIsDarkMode(checkDarkMode());
   };
 
   const handleMouseLeave = () => {
     setOpacity(0);
   };
+
+  const currentSpotlightColor = isDarkMode ? darkSpotlightColor : spotlightColor;
 
   return (
     <div
@@ -39,13 +55,13 @@ const SpotlightCard = ({ children, className = '', spotlightColor = 'rgba(243, 2
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-3xl border border-[#5B3E31] bg-[#5B3E31] overflow-hidden p-5 ${className}`}
+      className={`relative rounded-3xl border border-[#F4D77D] dark:border-amber-600 bg-[#F4D77D] dark:bg-gray-800 overflow-hidden p-5 transition-colors duration-300 ${className}`}
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
         style={{
           opacity,
-          background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 80%)`
+          background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${currentSpotlightColor}, transparent 80%)`
         }}
       />
       {children}

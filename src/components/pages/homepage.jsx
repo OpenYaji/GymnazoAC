@@ -17,10 +17,7 @@ const homepage = () => {
             <About/>
         </section>
         <Update/>
-
-        <section id="announcement" className="min-h-screen bg-gray-100 p-20">
-        <h2 className="text-3xl font-bold mb-6">ANNOUNCEMENT</h2>
-        <p>Contact form, map, and school details for inquiries.</p>
+        <section id="announcement" className="min-h-screen bg-gray-100 pt-10">
             <Announcement/>
         </section>
         
