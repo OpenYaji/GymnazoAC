@@ -7,15 +7,13 @@ const AnnounceCard = ({ title = "Class Suspension", body = "Lorem ipsum dolor si
   return (
     <div className="relative flex w-80 flex-col rounded-xl bg-white dark:bg-gray-800 bg-clip-border text-gray-700 dark:text-gray-300 shadow-md dark:shadow-gray-900/50 transition-colors duration-300">
       
-      {/* Image Container/Frame */}
       <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border shadow-lg shadow-blue-gray-500/40 dark:shadow-gray-900/50 bg-[#b9b196] transition-colors duration-300">
         
-        {/* The <img> tag is now inside the frame div */}
         <img
           src={Pic1}
           alt={title}
           className="w-full h-full object-cover" 
-          onError={(e) => { e.target.onerror = null; e.target.src=PLACEHOLDER_IMAGE; }} // Fallback if the URL fails
+          onError={(e) => { e.target.onerror = null; e.target.src=PLACEHOLDER_IMAGE; }} 
         />
         
       </div>

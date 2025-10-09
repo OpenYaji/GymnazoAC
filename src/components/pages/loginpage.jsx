@@ -14,7 +14,7 @@ const loginpage = () => {
     <section id="home">
      <Login/>
     </section>
-</main>    
+    </main>    
     <Footer/>
     </>
 

@@ -1,10 +1,25 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DarkModeProvider from './components/DarkModeProvider';
-import LoginPage from './components/pages/loginpage';
-import HomePage from './components/pages/homepage';
-import DashboardPage from './components/pages/dashboardpage';
-import AdmissionPage from './components/pages/admissionpage';
+import LoginPage from './components/pages/loginPage';
+import HomePage from './components/pages/homePage';
+import AdmissionPage from './components/pages/admissionPage';
+
+import DashboardLayout from './components/layout/dashboardLayout';
+
+import DashboardPage from './components/pages/dashboardPage';
+import AcademicPage from './components/pages/academicPage';
+import TransactionPage from './components/pages/transactionPage';
+import SettingsPage from './components/pages/settingsPage';
+import HelpSupportPage from './components/pages/helpSupportPage';
+import ProfilePage from './components/pages/profilePage';
+import SubjectPage from './components/pages/subjectPage';
+import DocumentPage from './components/pages/documentPage';
+import TuitionPage from './components/pages/tuitionPage';
+import EventPage from './components/pages/eventPage';
+import LibraryPage from './components/pages/libraryPage';
+import TeacherPage from './components/pages/teacherPage';
+
 
 function App() {
   return (
@@ -13,8 +28,23 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/admission" element={<AdmissionPage />} />
+
+          <Route path="/student-dashboard" element={<DashboardLayout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="academic" element={<AcademicPage />} />
+            <Route path="transaction" element={<TransactionPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="help" element={<HelpSupportPage />} />
+            <Route path="my-account" element={<ProfilePage />} />
+            <Route path="subject" element={<SubjectPage />} />
+            <Route path="document-request" element={<DocumentPage />} />
+            <Route path="pay-tuiton" element={<TuitionPage />} />
+            <Route path="events" element={<EventPage />} />
+            <Route path="library" element={<LibraryPage />} />
+            <Route path="teacher-qa" element={<TeacherPage />} />
+          </Route>
+
         </Routes>
       </DarkModeProvider>
     </BrowserRouter>

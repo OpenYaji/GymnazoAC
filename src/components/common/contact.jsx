@@ -1,11 +1,10 @@
 import React from 'react';
-import Logo from '../../assets/img/gymnazu.png'; // Assuming the logo path
+import Logo from '../../assets/img/gymnazu.png'; 
 
 const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Logic for handling form submission goes here
     alert('Form submitted! (In a real app, you would send this data to a server)');
   };
 
@@ -19,7 +18,6 @@ const Contact = () => {
             
             <div className='flex flex-col md:flex-row rounded-[calc(0.75rem-1px)] overflow-hidden bg-white dark:bg-[#343a40] transition-colors duration-300'>
               
-              {/* Left Logo Section (Golden Brown) - Light/Dark Mode Consistency */}
               <div className='w-full md:w-4/12 p-6 flex flex-col justify-center items-center 
                   bg-[#F4D77D] dark:bg-amber-400 text-[#5B3E31] dark:text-gray-900 transition-colors duration-300'> 
                 <div className='w-24 h-24'>

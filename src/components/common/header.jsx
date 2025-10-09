@@ -5,13 +5,11 @@ import Logo from '../../assets/img/gymnazu.png';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Initialize from localStorage or default to false
     const saved = localStorage.getItem('darkMode');
     return saved === 'true';
   });
 
   useEffect(() => {
-    // Apply dark mode class to document root and save to localStorage
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('darkMode', 'true');

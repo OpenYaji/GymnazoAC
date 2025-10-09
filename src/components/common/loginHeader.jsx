@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../../assets/img/gymnazu.png';
-import { Link } from 'react-router-dom'; // 👈 Link is already imported
+import { Link } from 'react-router-dom'; 
 
 const LoginHeader = () => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Initialize from localStorage or default to false
     const saved = localStorage.getItem('darkMode');
     return saved === 'true';
   });
 
   useEffect(() => {
-    // Apply dark mode class to document root and save to localStorage
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('darkMode', 'true');
@@ -28,7 +26,6 @@ const LoginHeader = () => {
     <header className='w-full shadow-md sticky top-0 z-50'>
       <div className='flex justify-between items-center h-16 sm:h-20 bg-gray-100 dark:bg-gray-800 px-4 sm:px-0 transition-colors duration-300'>
         <div className='flex items-center'>
-          {/* 👇 LOGO IS NOW CLICKABLE, linking to the home route "/" */}
           <Link to="/"> 
             <img 
               src={Logo} 
@@ -36,7 +33,6 @@ const LoginHeader = () => {
               className='h-10 w-10 sm:h-14 sm:w-14 sm:ml-7 border-[#5B3E31] dark:border-amber-400 border-2 rounded-full'
             />
           </Link>
-          {/* 👆 End of clickable logo */}
           <div className='ml-2 sm:ml-4 text-[#5B3E31] dark:text-amber-400 transition-colors duration-300'>
             <div className='font-bold text-xs sm:text-base'>GYMNAZO CHRISTIAN ACADEMY</div>
             <div className='text-[10px] sm:text-sm'>NOVALICHES</div>
@@ -44,13 +40,11 @@ const LoginHeader = () => {
         </div>
         <div className='flex items-center space-x-2 sm:space-x-6 sm:mr-10'> 
           
-          {/* Dark Mode Toggle Button */}
           <button
             onClick={toggleDarkMode}
             className="relative w-8 h-8 rounded-full bg-white dark:bg-gray-700 border border-[#5B3E31] dark:border-amber-400 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
             aria-label="Toggle dark mode"
           >
-            {/* Sun Icon */}
             <svg
               className={`absolute w-4 h-4 text-orange-500 transition-all duration-300 ${
                 isDarkMode ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
@@ -61,7 +55,6 @@ const LoginHeader = () => {
               <path d="M12,17c-2.76,0-5-2.24-5-5s2.24-5,5-5,5,2.24,5,5-2.24,5-5,5ZM13,0h-2V5h2V0Zm0,19h-2v5h2v-5ZM5,11H0v2H5v-2Zm19,0h-5v2h5v-2Zm-2.81-6.78l-1.41-1.41-3.54,3.54,1.41,1.41,3.54-3.54ZM7.76,17.66l-1.41-1.41-3.54,3.54,1.41,1.41,3.54-3.54Zm0-11.31l-3.54-3.54-1.41,1.41,3.54,3.54,1.41-1.41Zm13.44,13.44l-3.54-3.54-1.41,1.41,3.54,3.54,1.41-1.41Z" />
             </svg>
 
-            {/* Moon Icon */}
             <svg
               className={`absolute w-4 h-4 text-amber-400 transition-all duration-300 ${
                 isDarkMode ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'

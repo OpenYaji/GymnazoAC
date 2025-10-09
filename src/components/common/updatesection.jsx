@@ -46,7 +46,6 @@ const UpdatesSection = () => {
                 <div
                   className="p-4 rounded-lg shadow-xl text-stone-800 dark:text-gray-100 bg-[#F4D77D] dark:bg-gray-800 w-full h-full flex flex-col justify-between transition-colors duration-300"
                 >
-                  {/* Logo/Icon with Brown Circle Background */}
                   <div className="flex justify-center mb-3">
                     <div className="bg-[#5B3E31] dark:bg-amber-600 rounded-full p-2 flex items-center justify-center w-16 h-16 transition-colors duration-300"> 
                       <img
@@ -57,12 +56,10 @@ const UpdatesSection = () => {
                     </div>
                   </div>
 
-                  {/* Title */}
                   <h3 className="text-base font-semibold text-center mb-3">
                     {card.title}
                   </h3>
 
-                  {/* Content */}
                   <p className="text-xs text-center leading-snug">
                     {card.content}
                   </p>

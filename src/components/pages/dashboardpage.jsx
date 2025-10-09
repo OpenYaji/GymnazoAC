@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import WelcomeBanner from '../common/welcomeBanner';
+import QuickAccessGrid from '../common/quickAccessGrid';
+import Footer from '../common/footer';
 
-const dashboardpage = () => {
+const DashboardPage = () => {
   return (
-    <div>dashboardpage</div>
-  )
-}
+    <>
+      <WelcomeBanner />
+      <QuickAccessGrid />
+    </>
+  );
+};
 
-export default dashboardpage
+export default DashboardPage;

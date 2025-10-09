@@ -1,9 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    // Use 'class' for dark mode
 	darkMode: 'class',
     
-    // Configure content to scan all files in your src directory
     content: [
       "./index.html",
       "./src/**/*.{js,ts,jsx,tsx}",

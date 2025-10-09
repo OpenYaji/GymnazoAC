@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Bg from '../../assets/img/bg.png';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 
-// --- Privacy Modal Component (kept as is) ---
+const API_URL = 'http://localhost/Gymazo-Student-Side/backend/api/admission.php';
+
 const PrivacyModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
             <div className="bg-stone-800/95 dark:bg-gray-900/95 text-white p-6 sm:p-8 rounded-lg w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl backdrop-blur-sm border border-stone-700 dark:border-gray-600 transition-colors duration-300">
-            
                 <h2 className="text-xl sm:text-2xl font-bold text-[#F4D77D] dark:text-amber-400 border-b border-white/50 dark:border-gray-600 pb-2 mb-4 transition-colors duration-300">
                     Privacy Policy & Data Sharing Agreement
                 </h2>
@@ -46,45 +46,156 @@ const PrivacyModal = ({ isOpen, onClose }) => {
     );
 };
 
+const SuccessModal = ({ isOpen, trackingNumber, onClose }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-stone-800/95 dark:bg-gray-900/95 text-white p-6 sm:p-8 rounded-lg w-full max-w-md shadow-2xl backdrop-blur-sm border border-stone-700 dark:border-gray-600">
+                <div className="text-center">
+                    <div className="mb-4">
+                        <svg className="w-16 h-16 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h2 className="text-2xl font-bold text-[#F4D77D] mb-4">
+                        Application Submitted Successfully!
+                    </h2>
+                    <p className="text-sm mb-4">
+                        Your admission application has been received. Please save your tracking number for future reference.
+                    </p>
+                    <div className="bg-stone-900/50 p-4 rounded-lg mb-6">
+                        <p className="text-xs text-gray-400 mb-1">Tracking Number</p>
+                        <p className="text-2xl font-bold text-amber-400">{trackingNumber}</p>
+                    </div>
+                    <button 
+                        onClick={onClose}
+                        className="bg-[#F4D77D] hover:bg-amber-300 text-black font-bold py-2 px-8 rounded-lg transition duration-200"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const Enroll = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [hasAgreed, setHasAgreed] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [successModalOpen, setSuccessModalOpen] = useState(false);
+    const [trackingNumber, setTrackingNumber] = useState('');
+    const [formData, setFormData] = useState({
+        enrolleeType: '',
+        studentFirstName: '',
+        studentLastName: '',
+        birthdate: '',
+        gender: '',
+        address: '',
+        contactNumber: '',
+        emailAddress: '',
+        guardianFirstName: '',
+        guardianLastName: '',
+        relationship: '',
+        guardianContact: '',
+        guardianEmail: '',
+        gradeLevel: '',
+        previousSchool: ''
+    });
 
     const gradeLevels = [
         "Pre-Elem", "Kinder", "Grade 1", "Grade 2", "Grade 3",
-        "Grade 4", "Grade 5", "Grade 6" 
+        "Grade 4", "Grade 5", "Grade 6"
     ];
 
-    const handleSubmit = (e) => {
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         if (!hasAgreed) {
-            e.preventDefault();
             alert("Please read and agree to the Privacy Policy to submit the form.");
             return;
         }
-        console.log("Form submitted successfully!");
+
+        setIsSubmitting(true);
+
+        try {
+            const submitData = new FormData();
+            
+            // Add all form data
+            Object.keys(formData).forEach(key => {
+                submitData.append(key, formData[key]);
+            });
+
+            // Add privacy agreement
+            submitData.append('privacyAgreement', 'agreed');
+
+            // Submit to backend
+            const response = await fetch(`${API_URL}?action=submit`, {
+                method: 'POST',
+                body: submitData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setTrackingNumber(result.tracking_number);
+                setSuccessModalOpen(true);
+                
+                setFormData({
+                    enrolleeType: '',
+                    studentFirstName: '',
+                    studentLastName: '',
+                    birthdate: '',
+                    gender: '',
+                    address: '',
+                    contactNumber: '',
+                    emailAddress: '',
+                    guardianFirstName: '',
+                    guardianLastName: '',
+                    relationship: '',
+                    guardianContact: '',
+                    guardianEmail: '',
+                    gradeLevel: '',
+                    previousSchool: ''
+                });
+                setHasAgreed(false);
+            } else {
+                alert(`Error: ${result.message}`);
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('An error occurred while submitting the form. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
-        // CHANGE: Set min-h-screen to ensure the background covers the page
         <div className="relative w-full min-h-screen flex flex-col items-center justify-center py-8 px-4 sm:px-6">
             <PrivacyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <SuccessModal 
+                isOpen={successModalOpen} 
+                trackingNumber={trackingNumber}
+                onClose={() => setSuccessModalOpen(false)}
+            />
             
-            {/* Background and Overlay */}
             <div 
                 className="absolute inset-0 bg-cover bg-center" 
                 style={{ backgroundImage: `url(${Bg})` }}
             ></div>
-            <div className="absolute inset-0 bg-stone-900/60 dark:bg-black/70 transition-colors duration-300"></div> 
+            <div className="absolute inset-0 bg-stone-900/60 dark:bg-black/70 transition-colors duration-300"></div>
 
-            {/*
-                CHANGE: The Back to Home Button wrapper is now *removed* from the main document flow
-                and placed inside the content wrapper. It is no longer 'fixed'. 
-                I've also adjusted the pt-40 to pt-20 to compensate for the removed fixed element.
-            */}
             <div className="relative z-10 w-full max-w-5xl">
-            
-                {/* START: Back to Home Button - NOT FIXED, Scrolls with content */}
-                <div className='**relative** top-0 left-0 w-full mb-2 z-10 transition-all duration-300'>
+                <div className='relative top-0 left-0 w-full mb-2 z-10 transition-all duration-300'>
                     <div className='w-full flex justify-start'>
                         <Link 
                             to="/" 
@@ -97,12 +208,9 @@ const Enroll = () => {
                         </Link>
                     </div>
                 </div>
-                {/* END: Back to Home Button */}
 
                 <form className="relative" onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-5 gap-4 auto-rows-fr"> 
-                        
-                        {/* Left Column: Student Information */}
+                    <div className="grid grid-cols-5 gap-4 auto-rows-fr">
                         <div className="col-span-5 lg:col-span-2 space-y-4 p-4 rounded-lg backdrop-blur-sm bg-stone-800/60 dark:bg-gray-900/70 shadow-xl border border-stone-700 dark:border-gray-600 transition-colors duration-300">
                             <h2 className="text-lg font-bold text-white border-b border-white/40 dark:border-gray-600 pb-1 mb-2 transition-colors duration-300">
                                 Student Information
@@ -113,6 +221,9 @@ const Enroll = () => {
                                 <select 
                                     id="enrolleeType" 
                                     name="enrolleeType"
+                                    value={formData.enrolleeType}
+                                    onChange={handleInputChange}
+                                    required
                                     className="w-full h-8 px-3 bg-white/90 dark:bg-gray-700 dark:text-gray-100 text-gray-900 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-amber-400 focus:border-amber-400 text-sm transition-colors duration-300"
                                 >
                                     <option value="">Select Enrollee Type</option>
@@ -123,32 +234,94 @@ const Enroll = () => {
                             </div>
                             
                             <div className="flex space-x-2">
-                                <Input label="Student First Name" name="studentFirstName" type="text" className="flex-1" />
-                                <Input label="Student Last Name" name="studentLastName" type="text" className="flex-1" />
+                                <Input 
+                                    label="Student First Name" 
+                                    name="studentFirstName" 
+                                    type="text" 
+                                    value={formData.studentFirstName}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="flex-1" 
+                                />
+                                <Input 
+                                    label="Student Last Name" 
+                                    name="studentLastName" 
+                                    type="text"
+                                    value={formData.studentLastName}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="flex-1" 
+                                />
                             </div>
                             
                             <div className="flex space-x-2">
-                                <Input label="Birthdate" name="birthdate" type="date" className="flex-1" />
+                                <Input 
+                                    label="Birthdate" 
+                                    name="birthdate" 
+                                    type="date"
+                                    value={formData.birthdate}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="flex-1" 
+                                />
                                 <div className="flex-1 min-w-[120px]">
                                     <label className="sr-only">Gender</label>
                                     <div className="flex items-center space-x-2 h-8 text-sm">
                                         <label className="flex items-center space-x-1 text-white">
-                                            <input type="radio" name="gender" value="male" className="h-3 w-3 text-amber-400" />
+                                            <input 
+                                                type="radio" 
+                                                name="gender" 
+                                                value="male"
+                                                checked={formData.gender === 'male'}
+                                                onChange={handleInputChange}
+                                                required
+                                                className="h-3 w-3 text-amber-400" 
+                                            />
                                             <span>Male</span>
                                         </label>
                                         <label className="flex items-center space-x-1 text-white">
-                                            <input type="radio" name="gender" value="female" className="h-3 w-3 text-amber-400" />
+                                            <input 
+                                                type="radio" 
+                                                name="gender" 
+                                                value="female"
+                                                checked={formData.gender === 'female'}
+                                                onChange={handleInputChange}
+                                                required
+                                                className="h-3 w-3 text-amber-400" 
+                                            />
                                             <span>Female</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             
-                            <Input label="Address" name="address" type="text" />
+                            <Input 
+                                label="Address" 
+                                name="address" 
+                                type="text"
+                                value={formData.address}
+                                onChange={handleInputChange}
+                                required
+                            />
                             
                             <div className="flex space-x-2">
-                                <Input label="Contact Number" name="contactNumber" type="tel" className="flex-1" />
-                                <Input label="Email Address" name="emailAddress" type="email" className="flex-1" />
+                                <Input 
+                                    label="Contact Number" 
+                                    name="contactNumber" 
+                                    type="tel"
+                                    value={formData.contactNumber}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="flex-1" 
+                                />
+                                <Input 
+                                    label="Email Address" 
+                                    name="emailAddress" 
+                                    type="email"
+                                    value={formData.emailAddress}
+                                    onChange={handleInputChange}
+                                    className="flex-1" 
+                                />
                             </div>
 
                             <div className="pt-2 text-[10px] font-medium text-white leading-tight">
@@ -167,28 +340,62 @@ const Enroll = () => {
                             </div>
                         </div>
 
-                        {/* Right Column */}
                         <div className="col-span-5 lg:col-span-3 lg:col-start-3 space-y-4">
-                            
-                            {/* Parent/Guardian Information */}
                             <div className="space-y-4 p-4 rounded-lg backdrop-blur-sm bg-stone-800/60 dark:bg-gray-900/70 shadow-xl border border-stone-700 dark:border-gray-600 transition-colors duration-300">
                                 <h2 className="text-lg font-bold text-white border-b border-white/40 dark:border-gray-600 pb-1 mb-2 transition-colors duration-300">
                                     Parent/Guardian Information
                                 </h2>
                                 
                                 <div className="flex space-x-2">
-                                    <Input label="Guardian First Name" name="guardianFirstName" type="text" className="flex-1" />
-                                    <Input label="Guardian Last Name" name="guardianLastName" type="text" className="flex-1" />
+                                    <Input 
+                                        label="Guardian First Name" 
+                                        name="guardianFirstName" 
+                                        type="text"
+                                        value={formData.guardianFirstName}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="flex-1" 
+                                    />
+                                    <Input 
+                                        label="Guardian Last Name" 
+                                        name="guardianLastName" 
+                                        type="text"
+                                        value={formData.guardianLastName}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="flex-1" 
+                                    />
                                 </div>
                                 
                                 <div className="flex space-x-2">
-                                    <Input label="Relationship" name="relationship" type="text" className="flex-1" />
-                                    <Input label="Contact Number" name="guardianContact" type="tel" className="flex-1" />
+                                    <Input 
+                                        label="Relationship" 
+                                        name="relationship" 
+                                        type="text"
+                                        value={formData.relationship}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="flex-1" 
+                                    />
+                                    <Input 
+                                        label="Contact Number" 
+                                        name="guardianContact" 
+                                        type="tel"
+                                        value={formData.guardianContact}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="flex-1" 
+                                    />
                                 </div>
-                                <Input label="Email Address" name="guardianEmail" type="email" />
+                                <Input 
+                                    label="Email Address" 
+                                    name="guardianEmail" 
+                                    type="email"
+                                    value={formData.guardianEmail}
+                                    onChange={handleInputChange}
+                                />
                             </div>
 
-                            {/* Academic Information */}
                             <div className="space-y-4 p-4 rounded-lg backdrop-blur-sm bg-stone-800/60 dark:bg-gray-900/70 shadow-xl border border-stone-700 dark:border-gray-600 transition-colors duration-300">
                                 <h2 className="text-lg font-bold text-white border-b border-white/40 dark:border-gray-600 pb-1 mb-2 transition-colors duration-300">
                                     Academic Information
@@ -199,6 +406,9 @@ const Enroll = () => {
                                         <select 
                                             id="gradeLevel" 
                                             name="gradeLevel"
+                                            value={formData.gradeLevel}
+                                            onChange={handleInputChange}
+                                            required
                                             className="w-full h-8 px-3 bg-white/90 dark:bg-gray-700 dark:text-gray-100 text-gray-900 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-amber-400 focus:border-amber-400 text-sm placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
                                         >
                                             <option value="">Grade Level Applying for</option>
@@ -207,11 +417,17 @@ const Enroll = () => {
                                             ))}
                                         </select>
                                     </div>
-                                    <Input label="Previous School (if applicable)" name="previousSchool" type="text" className="flex-1" />
+                                    <Input 
+                                        label="Previous School (if applicable)" 
+                                        name="previousSchool" 
+                                        type="text"
+                                        value={formData.previousSchool}
+                                        onChange={handleInputChange}
+                                        className="flex-1" 
+                                    />
                                 </div>
                             </div>
                             
-                            {/* Privacy Agreement */}
                             <div className="p-4 rounded-lg backdrop-blur-sm bg-stone-800/60 dark:bg-gray-900/70 shadow-xl border border-stone-700 dark:border-gray-600 text-sm text-white space-y-3 transition-colors duration-300">
                                 <div className="flex items-start space-x-2">
                                     <input 
@@ -220,6 +436,7 @@ const Enroll = () => {
                                         type="checkbox" 
                                         checked={hasAgreed}
                                         onChange={(e) => setHasAgreed(e.target.checked)}
+                                        required
                                         className="mt-1 h-4 w-4 text-amber-400 border-gray-300 rounded focus:ring-amber-400 bg-white"
                                     />
                                     <label htmlFor="privacyAgreement" className="text-sm font-medium">
@@ -237,13 +454,13 @@ const Enroll = () => {
                         </div>
                     </div>
                     
-                    {/* Submit Button */}
                     <div className="flex justify-center pt-6">
                         <button 
-                            type="submit" 
-                            className="bg-[#F4D77D] dark:bg-amber-500 hover:bg-amber-300 dark:hover:bg-amber-400 text-black font-extrabold py-2 px-10 border-2 border-[#5B3E31] dark:border-amber-600 rounded-lg shadow-3xl text-base transition duration-200 uppercase"
+                            type="submit"
+                            disabled={isSubmitting}
+                            className={`bg-[#F4D77D] dark:bg-amber-500 hover:bg-amber-300 dark:hover:bg-amber-400 text-black font-extrabold py-2 px-10 border-2 border-[#5B3E31] dark:border-amber-600 rounded-lg shadow-3xl text-base transition duration-200 uppercase ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            SUBMIT
+                            {isSubmitting ? 'SUBMITTING...' : 'SUBMIT'}
                         </button>
                     </div>
                 </form>
@@ -257,13 +474,16 @@ const Enroll = () => {
     );
 };
 
-const Input = ({ label, name, type, className = '' }) => (
+const Input = ({ label, name, type, value, onChange, required = false, className = '' }) => (
     <div className={className}>
         <label htmlFor={name} className="sr-only">{label}</label>
         <input 
             id={name} 
             name={name} 
-            type={type} 
+            type={type}
+            value={value}
+            onChange={onChange}
+            required={required}
             placeholder={label} 
             className="w-full h-8 px-3 bg-white/90 dark:bg-gray-700 dark:text-gray-100 text-gray-900 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-amber-400 focus:border-amber-400 text-sm placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
         />

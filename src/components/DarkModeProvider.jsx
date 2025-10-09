@@ -1,9 +1,7 @@
-// Create this file: src/components/DarkModeProvider.jsx
 import { useEffect } from 'react';
 
 const DarkModeProvider = ({ children }) => {
   useEffect(() => {
-    // Load dark mode preference from localStorage on mount
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
     
     if (isDarkMode) {
