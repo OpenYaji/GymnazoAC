@@ -60,6 +60,26 @@ const Login = () => {
       return;
     }
 
+    // --- DEVELOPMENT BYPASS ---
+    // This part simulates a successful login without contacting the database.
+    console.log("DEV MODE: Bypassing login credentials check.");
+    
+    // Simulate a short network delay
+    setTimeout(() => {
+      // Execute success logic directly
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('username', username);
+      
+      setShowSuccessModal(true);
+      
+      setTimeout(() => {
+        navigate('/student-dashboard');
+      }, 2000); // Redirect after 2 seconds
+      
+      // setLoading(false); // No need for this here as navigation will happen
+    }, 1000); // 1-second delay
+    
+    /* // --- ORIGINAL DATABASE LOGIC (COMMENTED OUT) ---
     try {
       const response = await fetch('http://localhost/Gymazo-Student-Side/backend/api/auth/login.php', {
         method: 'POST',
@@ -92,6 +112,7 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+    */
   };
 
   return (

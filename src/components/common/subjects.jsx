@@ -1,5 +1,5 @@
 import React from 'react';
-import Folder from '../ui/Folder'; 
+import Folder from '../ui/Folder';
 
 const subjectItems = [
   { name: 'English', color: '#4A90E2', desktopClass: 'lg:row-start-1 lg:col-start-1' },
@@ -9,6 +9,9 @@ const subjectItems = [
   { name: 'PE', color: '#F5A623', desktopClass: 'lg:col-start-3 lg:row-start-3' },
   { name: 'AP', color: '#BD10E0', desktopClass: 'lg:col-start-5 lg:row-start-3' },
   { name: 'ESP', color: '#9013FE', desktopClass: 'lg:row-start-5' },
+  { name: 'ESP', color: '#9013FE', desktopClass: 'lg:row-start-5' },
+  { name: 'ESP', color: '#9013FE', desktopClass: 'lg:row-start-5' },
+
 ];
 
 const Subjects = () => {
@@ -22,7 +25,7 @@ const Subjects = () => {
           >
             <Folder
               color={subject.color}
-              size={1.7} 
+              size={1.7}
               items={[
                 <div key="content" className="flex h-full w-full items-center justify-center p-2 text-center text-lg font-bold">
                   {subject.name}

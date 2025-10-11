@@ -24,7 +24,7 @@ const library = () => {
           <p>Your content here</p>
         </Card>
       </CardSwap>
-    </div>  )
+    </div>)
 }
 
 export default library

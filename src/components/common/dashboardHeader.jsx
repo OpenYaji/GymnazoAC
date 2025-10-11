@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Logo from '../../assets/img/gymnazu.png';
+import Logo from '../../assets/img/jhego.jpg'; // Verify this path is correct
 import { Link } from 'react-router-dom';
-import { Menu, Search, Sun, Moon, Bell, User, Settings, LogOut } from 'lucide-react';
+import { Menu, Search, Sun, Moon, Bell, User, ArrowLeft } from 'lucide-react';
 
 const Tooltip = ({ text }) => (
   <span className="
@@ -19,6 +19,9 @@ const Tooltip = ({ text }) => (
 const DashboardHeader = ({ setMobileOpen }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [openDropdown, setOpenDropdown] = useState(null);
+  // --- New state for mobile search visibility ---
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.theme === 'dark' || 
@@ -26,6 +29,7 @@ const DashboardHeader = ({ setMobileOpen }) => {
     }
     return false;
   });
+
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
   
@@ -78,6 +82,25 @@ const DashboardHeader = ({ setMobileOpen }) => {
   return (
     <header className='sticky top-0 z-30 w-full bg-[#F9F9F9] dark:bg-slate-900 dark:border-b dark:border-slate-700 py-4 flex items-center justify-between'>
       
+      {/* --- Mobile Search View (Overlay) --- */}
+      {isMobileSearchOpen && (
+        <div className="absolute inset-0 bg-[#F9F9F9] dark:bg-slate-900 w-full flex items-center px-4 z-40 sm:hidden">
+            <button onClick={() => setIsMobileSearchOpen(false)} className="mr-2 text-gray-500 dark:text-gray-400">
+                <ArrowLeft size={24} />
+            </button>
+            <div className='relative flex-1'>
+                <input
+                    type='text'
+                    placeholder='Search...'
+                    className='w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#F3D67D]'
+                    autoFocus
+                />
+                <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-300' />
+            </div>
+        </div>
+      )}
+
+      {/* --- Default Left Side --- */}
       <div className="flex items-center flex-1">
         <div className="relative group pl-6 md:hidden">
           <button
@@ -90,6 +113,7 @@ const DashboardHeader = ({ setMobileOpen }) => {
           <Tooltip text="Open menu" />
         </div>
 
+        {/* --- Desktop Search Bar --- */}
         <div className='hidden sm:block flex-1 max-w-sm md:pl-6'>
           <div className='relative'>
             <input
@@ -102,11 +126,20 @@ const DashboardHeader = ({ setMobileOpen }) => {
         </div>
       </div>
 
+      {/* --- Default Right Side --- */}
       <div className='flex items-center gap-4 ml-4 pr-6'>
         <div className='hidden sm:flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400'>
           <span>{formattedDate}</span>
           <span>-</span>
           <span>{formattedTime}</span>
+        </div>
+
+        {/* --- Mobile Search Trigger --- */}
+        <div className="relative group sm:hidden">
+            <button onClick={() => setIsMobileSearchOpen(true)} className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-colors">
+                <Search className='w-5 h-5 text-gray-600 dark:text-gray-400' />
+            </button>
+            <Tooltip text="Search" />
         </div>
 
         <div className="relative group">
@@ -145,8 +178,8 @@ const DashboardHeader = ({ setMobileOpen }) => {
               <img src={Logo} alt='User' className='w-full h-full object-cover' />
             </div>
             <div className='hidden md:block'>
-              <p className='text-sm font-semibold text-gray-800 dark:text-gray-200'>Zhego Dacayo</p>
-              <p className='text-xs text-gray-500 dark:text-gray-400'>Student ID</p>
+              <p className='text-sm font-semibold text-gray-800 dark:text-gray-200'>Jhego Ian B. Co</p>
+              <p className='text-xs text-gray-500 dark:text-gray-400'>23-0000</p>
             </div>
           </button>
           <Tooltip text="Profile Settings" />
@@ -162,14 +195,6 @@ const DashboardHeader = ({ setMobileOpen }) => {
                      <User size={16} className="text-gray-600 dark:text-gray-400" />
                      <span className="text-sm text-gray-700 dark:text-gray-300">My Account</span>
                    </Link>
-                 </li>
-                 <li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-600 cursor-pointer flex items-center gap-3">
-                   <Settings size={16} className="text-gray-600 dark:text-gray-400" />
-                   <span className="text-sm text-gray-700 dark:text-gray-300">Settings</span>
-                 </li>
-                 <li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-600 cursor-pointer flex items-center gap-3">
-                   <LogOut size={16} className="text-gray-600 dark:text-gray-400" />
-                   <span className="text-sm text-gray-700 dark:text-gray-300"><Link to="/">Logout</Link></span>
                  </li>
                </ul>
              </div>

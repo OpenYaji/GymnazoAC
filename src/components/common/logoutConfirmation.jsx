@@ -31,7 +31,7 @@ export default function LogoutConfirmation({ isOpen, onClose, onConfirm }) {
             Slide the icon below to confirm and end your session.
           </p>
         </div>
-        
+
         <div className="mt-8">
           <LogoutSlider onConfirm={onConfirm} />
         </div>

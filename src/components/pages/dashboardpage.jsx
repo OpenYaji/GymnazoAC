@@ -1,7 +1,6 @@
 import React from 'react';
-import WelcomeBanner from '../common/welcomeBanner';
-import QuickAccessGrid from '../common/quickAccessGrid';
-import Footer from '../common/footer';
+import WelcomeBanner from '../common/dashboard/welcomeBanner';
+import QuickAccessGrid from '../common/dashboard/quickAccessGrid';
 
 const DashboardPage = () => {
   return (

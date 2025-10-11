@@ -29,7 +29,7 @@ const announcement = () => {
 
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-3 w-3 leading-none lg:h-4 lg:w-4" 
+            className="h-3 w-3 leading-none lg:h-4 lg:w-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -64,10 +64,10 @@ const announcement = () => {
 
             {/* Cards Grid - FIX IS HERE */}
             <div className='grid grid-cols-2 gap-8'>
-              <AnnounceCard 
+              <AnnounceCard
                 image={Pic1} // Changed from image=`{Pic1}`.
               />
-              <AnnounceCard 
+              <AnnounceCard
                 image={Pic2} // Changed from image=`{Pic2}`.
               />
             </div>
@@ -90,7 +90,7 @@ const announcement = () => {
           </div>
         </div>
         <div className='hidden lg:flex justify-center mt-3'>
-        <ViewAllButton />
+          <ViewAllButton />
 
         </div>
 
@@ -98,8 +98,8 @@ const announcement = () => {
         <div className='lg:hidden space-y-8 px-4'>
           <div className='bg-[#f8e19e] dark:bg-gray-800 rounded-lg p-8 transition-colors duration-300'>
             <div className='flex justify-between items-center mb-8'>
-              <h3 className='text-3xl font-bold text-base-brown dark:text-amber-400 transition-colors duration-300'>Latest Announcements</h3> 
-              <ViewAllButton /> 
+              <h3 className='text-3xl font-bold text-base-brown dark:text-amber-400 transition-colors duration-300'>Latest Announcements</h3>
+              <ViewAllButton />
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
               <div className='mx-auto'>
@@ -112,10 +112,10 @@ const announcement = () => {
           </div>
 
           <div>
-            <h3 className='text-3xl font-bold text-gray-800 dark:text-amber-400 mb-4 text-center transition-colors duration-300'>LATEST NEWS</h3> 
+            <h3 className='text-3xl font-bold text-gray-800 dark:text-amber-400 mb-4 text-center transition-colors duration-300'>LATEST NEWS</h3>
             <div className='flex justify-center'>
               <Carousel
-                baseWidth={400} 
+                baseWidth={400}
                 height={420}
                 autoplay={true}
                 autoplayDelay={3000}

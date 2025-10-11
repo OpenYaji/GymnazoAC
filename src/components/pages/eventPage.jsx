@@ -1,8 +1,10 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 const eventPage = () => {
   return (
-    <div>eventPage</div>
+
+   <button><div><Link to='/student-dashboard'><ArrowLeft/></Link></div> </button>
   )
 }
 

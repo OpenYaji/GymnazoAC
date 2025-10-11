@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../../assets/img/gymnazu.png';
+import Logo from '../../../assets/img/gymnazu.png';
 
 const WelcomeBanner = () => {
   return (
@@ -8,7 +8,7 @@ const WelcomeBanner = () => {
       <div className='relative flex items-center justify-between'>
         <div>
           <h3 className='font-medium text-stone-800  mb-2'>
-            Welcome back, <span className='font-bold'>Dacayo</span>
+            Welcome back, <span className='font-bold'>Co</span>
           </h3>
           <h1 className='text-3xl font-extrabold text-stone-900 mb-4'>
             GYMNAZO CHRISTIAN ACADEMY
