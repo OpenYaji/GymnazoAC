@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DarkModeProvider from './components/DarkModeProvider';
 import LoginPage from './components/pages/loginPage';
-import HomePage from './components/pages/homePage.jsx';
+import HomePage from './components/pages/homePage';
 import AdmissionPage from './components/pages/admissionPage';
 
 import DashboardLayout from './components/layout/dashboardLayout';
@@ -31,7 +31,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/admission" element={<AdmissionPage />} />
-
           <Route path="/student-dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardPage />} />
             <Route path="academic" element={<AcademicPage />} />
