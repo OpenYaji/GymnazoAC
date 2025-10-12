@@ -1,17 +1,17 @@
 import React from 'react'
-import Header from '../common/loginHeader'
-import Footer from '../common/footer'
-import Login from '../common/login'
+import Header from '../common/homepage/loginHeader'
+import Footer from '../common/homepage/footer'
+import Login from '../common/homepage/login'
 const loginpage = () => {
   return (
-    <> 
-            <Header/>
-    <main className=' min-h-screen'>
-    <section id="home">
-     <Login/>
-    </section>
-    </main>    
-    <Footer/>
+    <>
+      <Header />
+      <main className=' min-h-screen'>
+        <section id="home">
+          <Login />
+        </section>
+      </main>
+      <Footer />
     </>
 
   )

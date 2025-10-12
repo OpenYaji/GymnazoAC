@@ -1,5 +1,5 @@
 import React from 'react';
-import Folder from '../ui/Folder';
+import Folder from '../../ui/Folder';
 
 const subjectItems = [
   { name: 'English', color: '#4A90E2', desktopClass: 'lg:row-start-1 lg:col-start-1' },

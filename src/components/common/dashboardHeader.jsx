@@ -19,7 +19,6 @@ const Tooltip = ({ text }) => (
 const DashboardHeader = ({ setMobileOpen }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [openDropdown, setOpenDropdown] = useState(null);
-  // --- New state for mobile search visibility ---
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   
   const [isDarkMode, setIsDarkMode] = useState(() => {

@@ -1,9 +1,9 @@
 import React from 'react'
-import ModelViewer from '../ui/ModelViewer'
-import Carousel from '../ui/Carousel'
-import AnnounceCard from '../ui/announceCard'
-import Pic1 from '../../assets/img/pic6.jpg'
-import Pic2 from '../../assets/img/about7.jpg'
+import ModelViewer from '../../ui/ModelViewer'
+import Carousel from '../../ui/Carousel'
+import AnnounceCard from '../../ui/announceCard'
+import Pic1 from '../../../assets/img/pic6.jpg'
+import Pic2 from '../../../assets/img/about7.jpg'
 
 const announcement = () => {
   const ViewAllButton = () => (
@@ -62,18 +62,16 @@ const announcement = () => {
               <h3 className='mr-10 text-4xl font-bold text-base-brown dark:text-amber-400 transition-colors duration-300 pb-2'>LATEST ANNOUNCEMENTS</h3>
             </div>
 
-            {/* Cards Grid - FIX IS HERE */}
             <div className='grid grid-cols-2 gap-8'>
               <AnnounceCard
-                image={Pic1} // Changed from image=`{Pic1}`.
+                image={Pic1} 
               />
               <AnnounceCard
-                image={Pic2} // Changed from image=`{Pic2}`.
+                image={Pic2} 
               />
             </div>
           </div>
 
-          {/* News Section*/}
           <div className='flex-shrink-0 flex flex-col'>
             <h3 className='flex justify-center text-4xl font-bold text-base-brown dark:text-amber-400 mb-4 transition-colors duration-300'>NEWS</h3>
             <div className='flex justify-center items-start flex-1'>

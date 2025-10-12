@@ -1,5 +1,5 @@
 import React from 'react'
-import CardSwap, { Card } from '../ui/CardSwap'
+import CardSwap, { Card } from '../../ui/CardSwap'
 
 const library = () => {
   return (

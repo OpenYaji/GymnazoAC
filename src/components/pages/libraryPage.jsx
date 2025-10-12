@@ -1,8 +1,8 @@
 import React from 'react'
-import Library from '../common/library'
+import Library from '../common/homepage/library'
 const libraryPage = () => {
   return (
-    <Library/>
+    <Library />
   )
 }
 

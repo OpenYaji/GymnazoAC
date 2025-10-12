@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/img/gymnazu.png';
+import Logo from '../../../assets/img/gymnazu.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

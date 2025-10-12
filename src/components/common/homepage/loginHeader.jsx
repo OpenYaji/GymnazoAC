@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Logo from '../../assets/img/gymnazu.png';
+import Logo from '../../../assets/img/gymnazu.png';
 import { Link } from 'react-router-dom'; 
 
 const LoginHeader = () => {

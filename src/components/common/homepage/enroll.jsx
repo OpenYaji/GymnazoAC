@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Bg from '../../assets/img/bg.png';
+import Bg from '../../../assets/img/bg.png';
 import { Link } from 'react-router-dom';
 
 const API_URL = 'http://localhost/Gymazo-Student-Side/backend/api/admission.php';

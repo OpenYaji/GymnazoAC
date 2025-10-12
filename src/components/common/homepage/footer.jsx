@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../../assets/img/gymnazu.png'; 
+import Logo from '../../../assets/img/gymnazu.png'; 
 
 const Footer = () => {
   const quickLinks = [

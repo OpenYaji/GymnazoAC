@@ -1,8 +1,8 @@
 import React from 'react';
-import TeamImage from '../../assets/img/team.png';
-import PixelTransition from '../ui/PixelTransition';
-import GlareHover from '../ui/GlareHover';
-import CircularGallery from '../ui/CircularGallery';
+import TeamImage from '../../../assets/img/team.png';
+import PixelTransition from '../../ui/PixelTransition';
+import GlareHover from '../../ui/GlareHover';
+import CircularGallery from '../../ui/CircularGallery';
 
 
 const About = () => {

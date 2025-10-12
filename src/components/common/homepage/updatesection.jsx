@@ -1,10 +1,10 @@
 import React from 'react';
-import a1 from '../../assets/img/a1.png';
-import a2 from '../../assets/img/a2.png';
-import a3 from '../../assets/img/a3.png';
-import a4 from '../../assets/img/a4.png';
+import a1 from '../../../assets/img/a1.png';
+import a2 from '../../../assets/img/a2.png';
+import a3 from '../../../assets/img/a3.png';
+import a4 from '../../../assets/img/a4.png';
 
-import SpotlightCard from '../ui/SpotlightCard';
+import SpotlightCard from '../../ui/SpotlightCard';
 
 const UpdatesSection = () => {
   const cards = [

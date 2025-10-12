@@ -1,9 +1,9 @@
 import React from 'react';
-import Girl from '../../assets/img/girl.png';
-import Bg from '../../assets/img/bg.png';
-import Logo from '../../assets/img/gymnazu.png';
-import SplitText from "../../components/ui/SplitText";
-import ShinyText from '../../components/ui/ShinyText';
+import Girl from '../../../assets/img/girl.png';
+import Bg from '../../../assets/img/bg.png';
+import Logo from '../../../assets/img/gymnazu.png';
+import SplitText from "../../ui/SplitText";
+import ShinyText from '../../ui/ShinyText';
 import { Link } from 'react-router-dom';
 
 const handleAnimationComplete = () => {
@@ -16,16 +16,16 @@ const Hero = () => {
     const line2 = "ACADEMY";
 
     return (
-        <div id="home" className="relative w-full h-screen bg-cover bg-center pt-[84px] -mt-[84px] transition-colors duration-300" 
+        <div id="home" className="relative w-full h-screen bg-cover bg-center pt-[84px] -mt-[84px] transition-colors duration-300"
             style={{ backgroundImage: `url(${Bg})` }}>
 
             <div className="absolute inset-0 bg-black opacity-50 dark:opacity-70 z-0 transition-opacity duration-300"></div>
-            <div className="relative z-2 flex flex-col lg:flex-row h-full items-center justify-center lg:justify-between px-4 sm:px-10 lg:px-20 text-white"> 
+            <div className="relative z-2 flex flex-col lg:flex-row h-full items-center justify-center lg:justify-between px-4 sm:px-10 lg:px-20 text-white">
 
                 <div className="max-w-xl text-center lg:text-left mb-10 lg:mb-0">
-                    
+
                     <h1 className="text-xl sm:text-2xl font-light mb-2">Welcome to the,</h1>
-                    
+
                     <h2 className="font-extrabold mb-4 lg:mb-6 leading-tight">
                         <SplitText
                             text={line1}
@@ -44,7 +44,7 @@ const Hero = () => {
                         <SplitText
                             text={line2}
                             className="block text-3xl sm:text-4xl lg:text-5xl"
-                            delay={400} 
+                            delay={400}
                             duration={0.6}
                             ease="power3.out"
                             splitType="chars"
@@ -56,7 +56,7 @@ const Hero = () => {
                             onLetterAnimationComplete={handleAnimationComplete}
                         />
                     </h2>
-                    
+
                     <p className="text-lg sm:text-xl lg:text-2xl mb-8 lg:mb-10">
                         <ShinyText
                             text="Affordable and Accessible Quality Education"
@@ -81,7 +81,7 @@ const Hero = () => {
                     <img
                         src={Girl}
                         alt="Student"
-                        className="h-[50vh] lg:h-[80vh] object-cover relative z-10 block dark:opacity-90" 
+                        className="h-[50vh] lg:h-[80vh] object-cover relative z-10 block dark:opacity-90"
                     />
                     <img
                         src={Logo}
