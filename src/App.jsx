@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DarkModeProvider from './components/DarkModeProvider';
-import LoginPage from './components/pages/loginPage';
-import HomePage from './components/pages/homePage';
+import LoginPage from './components/pages/loginPage.jsx';
+import HomePage from './components/pages/homePage.jsx';
 import AdmissionPage from './components/pages/admissionPage';
 
 import DashboardLayout from './components/layout/dashboardLayout';
