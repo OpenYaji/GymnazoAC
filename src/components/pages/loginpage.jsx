@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../common/homepage/loginHeader'
 import Footer from '../common/homepage/footer'
 import Login from '../common/homepage/login'
-const loginpage = () => {
+const loginPage = () => {
   return (
     <>
       <Header />
@@ -17,4 +17,4 @@ const loginpage = () => {
   )
 }
 
-export default loginpage
+export default loginPage
