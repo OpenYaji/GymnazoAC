@@ -1,45 +1,8 @@
-import React, { useState } from 'react';
-import Logo from '../../../assets/img/gymnazu.png';
-import Bg from '../../../assets/img/bg.png';
+import { useState } from 'react';
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-
-const SuccessModal = ({ isOpen, username }) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl transform transition-all duration-300 scale-100 animate-fade-in">
-        <div className="flex justify-center mb-6">
-          <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
-            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-        </div>
-
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-            Login Successful!
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-2">
-            Welcome back, <span className="font-semibold text-amber-600 dark:text-amber-400">{username || 'Student'}</span>
-          </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-            Redirecting to your dashboard...
-          </p>
-        </div>
-
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-6 overflow-hidden">
-          <div className="bg-gradient-to-r from-green-400 to-green-600 h-full rounded-full animate-progress"></div>
-        </div>
-
-        <div className="flex justify-center">
-          <img src={Logo} alt="Logo" className="w-12 h-12 opacity-50" />
-        </div>
-      </div>
-    </div>
-  );
-};
+import Bg from '../../../assets/img/bg.png';
+import SuccessModal from "../../modals/SuccessModal";
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -47,9 +10,10 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -60,30 +24,51 @@ const Login = () => {
       return;
     }
 
-    console.log("try lods dev mode lang to");
-    
-    setTimeout(() => {
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('username', username);
-      
-      setShowSuccessModal(true);
-      
-      setTimeout(() => {
-        navigate('/student-dashboard');
-      }, 2000);
+    try {
+      const response = await axios.post(
+        'http://localhost/Gymazo-Student-Side/backend/api/auth/login.php',
+        {
+          username: username,
+          password: password
+        },
+        {
+          withCredentials: true, // CRITICAL: This ensures cookies/session are sent
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
-    }, 1500);
+      if (response.data.success) {
+        setLoggedInUser(response.data.user.fullName); 
+        setShowSuccessModal(true);
+
+        setTimeout(() => {
+          navigate('/student-dashboard');
+        }, 2000);
+      }
+      console.log("Login successful!");
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+        console.error("Login failed:", err.response.data.message);
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+        console.error("Unexpected error:", err);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <SuccessModal 
         isOpen={showSuccessModal} 
-        onClose={() => setShowSuccessModal(false)}
-        username={username}
+        username={loggedInUser}
       />
 
-      <div className="relative min-h-screen w-full flex items-center justify-center">
+      <div className="relative min-h-screen w-full flex items-center justify-center lg:pb-20">
         
         <div 
           className="absolute inset-0 bg-cover bg-center" 
@@ -92,22 +77,9 @@ const Login = () => {
           <div className="absolute inset-0 bg-stone-900/60 dark:bg-black/70 z-0 transition-colors duration-300"></div>
         </div>
 
-        <div className='fixed top-4 left-4 z-20'>
-            <Link 
-              to="/" 
-              className='flex items-center gap-2 text-white font-bold hover:text-amber-300 transition duration-150 text-sm group'
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:-translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              <span className='inline'>Back to Home</span>
-            </Link>
-        </div>
-
         <div className="relative z-10 w-full max-w-sm mx-4 p-8 rounded-2xl shadow-xl bg-stone-800/60 dark:bg-gray-900/70 border border-stone-700 dark:border-gray-600 backdrop-blur-sm transition-colors duration-300">
           
           <div className="flex flex-col items-center mb-6">
-            <img src={Logo} alt="Logo" className="w-20 h-20 mb-3 object-contain" />
             <h2 className="text-xl font-bold uppercase text-white tracking-wider">Student Login</h2>
           </div>
 
@@ -122,7 +94,7 @@ const Login = () => {
             <div className="relative">
               <input 
                 type="text" 
-                placeholder="ID Number" 
+                placeholder="Student Number" 
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={loading}
@@ -178,19 +150,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: scale(0.9); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes progress {
-          from { width: 0%; }
-          to { width: 100%; }
-        }
-        .animate-fade-in { animation: fade-in 0.3s ease-out; }
-        .animate-progress { animation: progress 2s ease-in-out; }
-      `}</style>
+      
     </>
   );
 }
