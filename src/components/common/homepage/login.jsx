@@ -47,12 +47,14 @@ const Login = () => {
           navigate('/student-dashboard');
         }, 2000);
       }
-      console.log("Login successful!");
+      console.log("gumana sya haha lods edi wow");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
+        console.log("mali password mo lods");
         console.error("Login failed:", err.response.data.message);
       } else {
+        console.log("tignan mo yung xampp lods");
         setError('An unexpected error occurred. Please try again.');
         console.error("Unexpected error:", err);
       }
